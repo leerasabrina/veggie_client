@@ -27,6 +27,11 @@ import PrivateUser from "../Private/PrivateUser";
 import PrivateSeller from "../Private/PrivateSeller";
 import ErrorAdmin from "../Pages/Error/ErrorAdmin";
 import ErrorUser from "../Pages/Error/ErrorUser";
+import MyWatchlist from "../Pages/MyWatchlist";
+import MyCart from "../Pages/MyCart";
+import Profile from "../Pages/DashBoard/Profile";
+import Terms from "../Pages/Terms";
+import Privacy from "../Components/Privacy";
 
 
 
@@ -39,8 +44,12 @@ export const router = createBrowserRouter([
         {index:true,element:<Home></Home>},
         {path:'market/:id',element:<PrivateUser><DetailProduct></DetailProduct></PrivateUser>},
         {path:'all',element:<All></All>},
+        {path:'terms',element:<Terms></Terms>},
+        {path:'privacy',element:<Privacy></Privacy>},
         {path:'signin',element:<SignIn></SignIn>},
         {path:'signup',element:<SignUp></SignUp>},
+        {path:'my-watchlist',element:<PrivateUser><MyWatchlist></MyWatchlist></PrivateUser>},
+        {path:'my-cart',element:<PrivateUser><MyCart></MyCart></PrivateUser>},
        
       ]
     },
@@ -52,6 +61,7 @@ export const router = createBrowserRouter([
             {index:true,element:<Overview></Overview>},
             {path:'*',element:<ErrorUser></ErrorUser>},
             {path:'view',element:<View></View>},
+            {path:'profile',element:<Profile></Profile>},
             {path:'manage',element:<Manage></Manage>},
             {path:'order-list',element:<OrderList></OrderList>}
         ]
@@ -66,6 +76,7 @@ export const router = createBrowserRouter([
             {path:'add-item',element:<AddItem></AddItem>},
             {path:'add-adv',element:<AddAdvertisement></AddAdvertisement>},
             {path:'my-advs',element:<MyAdvertisement></MyAdvertisement>},
+            {path:'profile',element:<Profile></Profile>},
             {path:'my-items',element:<MyItems></MyItems>},
             {path:'update-product/:id',element:<UpdateItem></UpdateItem>},
             
@@ -82,6 +93,7 @@ export const router = createBrowserRouter([
             {path:'*',element:<ErrorAdmin></ErrorAdmin>},
             {path:'all-product',element:<AllProducts></AllProducts>},
             {path:'all-user',element:<AllUser></AllUser>},
+            {path:'profile',element:<Profile></Profile>},
             {path:'all-order',element:<CheckOrder></CheckOrder>},
             {path:'all-adv',element:<AllAdvertisement></AllAdvertisement>},
             {path:'update-product/:id',element:<UpdateItem></UpdateItem>},

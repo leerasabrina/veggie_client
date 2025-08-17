@@ -13,32 +13,38 @@ import { toast } from 'react-toastify';
 import { auth } from '../firebase/firebase.init';
 import Loader from '../Loader/Loader';
 import axios from 'axios';
-import jwtDecode from 'jwt-decode';
+
+
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  
 
   const baseURL = 'https://server-side-nine-ruddy.vercel.app';
 
   const generateJWT = async (email) => {
     try {
-      const res = await axios.post(`${baseURL}/jwt`, { email });
-      localStorage.setItem('token', res.data.accessToken);
-      localStorage.setItem('refreshToken', res.data.refreshToken);
+      const res = await axios.post(`${baseURL}/jwt`, { email },{withCredentials:true});
+      const {accessToken}=res.data;
+      localStorage.setItem('token',accessToken);
+      return accessToken;
+     
     } catch (err) {
       console.error("JWT generation failed:", err);
+      return null;
     }
   };
 
-  const refreshJWT = async () => {
-    const refreshToken = localStorage.getItem('refreshToken');
-    if (!refreshToken) return null;
 
+
+
+  const refreshJWT = async () => {
+   
     try {
-      const res = await axios.post(`${baseURL}/jwt/refresh`, { refreshToken });
+      const res = await axios.post(`${baseURL}/jwt/refresh`, {},{withCredentials:true});
       const { accessToken } = res.data;
-      localStorage.setItem('token', accessToken);
+      localStorage.setItem('token',accessToken);
       return accessToken;
     } catch (err) {
       console.error("Refresh token failed:", err);
@@ -51,6 +57,9 @@ const AuthProvider = ({ children }) => {
     let token = localStorage.getItem('token');
     options.method = options.method || 'GET';
     options.headers = options.headers || {};
+    options.headers['Content-Type'] = options.headers['Content-Type'] || 'application/json';
+    
+ options.withCredentials = true;
     options.headers.Authorization = `Bearer ${token}`;
 
     try {
@@ -78,13 +87,13 @@ const AuthProvider = ({ children }) => {
       email: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
-      role: 'user',
+      role: 'user', 
     };
 
     try {
       await secureFetch(`${baseURL}/users/${user.email}`);
       setUser(newUser);
-    } catch (err) {
+    } catch (err) {                               
       if (err.response?.status === 404) {
         await secureFetch(`${baseURL}/users`, {
           method: 'POST',
@@ -93,20 +102,18 @@ const AuthProvider = ({ children }) => {
         });
         setUser(newUser);
       } else {
-        console.error("Google DB error:", err?.message);
-        
+        console.error("Google DB error:", err?.message);       
         throw err;
       }
-    }
-
-   
+    }  
     return result;
   } catch (err) {
-    console.error("Google Sign-in failed:", err?.message);
-   
+    console.error("Google Sign-in failed:", err?.message);   
     throw err;
   }
 };
+
+
   const login = async (email, password) => {
   try {
     const result = await signInWithEmailAndPassword(auth, email, password);
@@ -148,13 +155,14 @@ const AuthProvider = ({ children }) => {
       photoURL: photo,
       role: 'user',
     };
-
+// ekhane secureFetch use korbo
     await fetch(`${baseURL}/users`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newUser),
+      // ekhane data:newUser likhle hotona body:JSON.srtingify(newUser) na kore
     });
-
+// setUser(newUser);
     await fetchUserFromDB(user);
     toast.success("Registration successful!");
   } catch (err) {
@@ -168,12 +176,26 @@ const AuthProvider = ({ children }) => {
   }
 };
 
-  const logout = () => {
+  const logout = async () => {
+  try {
+   
     localStorage.removeItem('token');
-    localStorage.removeItem('refreshToken');
+    
+    await fetch(`${baseURL}/logout`, {
+      method: 'POST',
+      credentials: 'include', 
+    });
+
     setUser(null);
-    return signOut(auth);
-  };
+
+    await signOut(auth);
+
+   
+  } catch (error) {
+    console.error('Logout failed:', error);
+  }
+};
+
 
   const fetchUserFromDB = async (firebaseUser) => {
     if (!firebaseUser?.email) return setUser(null);

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link, NavLink } from 'react-router';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router';
 import './component.css';
 // import { PiBookOpenDuotone } from 'react-icons/pi';
 import Loader from '../Loader/Loader';
@@ -10,11 +10,34 @@ import Logo from './Logo';
 
 const Navbar = () => {
   const { user, logout, loading } = useContext(AuthContext);
+   const [show, setShow] = useState(false);
+  const location = useLocation();
+  const navigate=useNavigate();
+  const handleScroll = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
  
-  const [show, setShow] = useState(false);
+ 
   const navlinks = <>
-  <li><NavLink to={'/'} className='a'>Home</NavLink></li>
+  <li><NavLink to={'/'} className='a' onClick={(e) => {
+          if (location.pathname === '/') {
+            e.preventDefault();
+            handleScroll('banner');
+          }
+        }}>Home</NavLink></li>
   <li><NavLink to={'/all'} className='a'>All Products</NavLink></li>
+  {
+    user && (
+      <>
+      <li><NavLink to={'/my-watchlist'} className='a'>My Watchlists</NavLink></li>
+      <li><NavLink to={'/my-cart'} className='a'>My cart</NavLink></li>
+      </>
+    )
+  }
+  <li><NavLink to={'/terms'} className='a'>Terms & Condition</NavLink></li>
   
 
   </>
@@ -23,6 +46,8 @@ const Navbar = () => {
     logout()
       .then(() => {
         console.log("Logged out");
+        navigate('/signin');
+
       })
       .catch((error) => {
         console.error(error);
@@ -31,7 +56,7 @@ const Navbar = () => {
 
 
   return (
-    <div className= "bg-slate-100/50 px-4 text-black navbar sticky top-0 z-50">
+    <div className= "md:px-32 bg-slate-100/50 px-4 text-black navbar sticky top-0 z-50">
       <div className="navbar-start w-[170px] md:w-1/2">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

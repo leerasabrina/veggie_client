@@ -11,7 +11,7 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto my-16 px-4 text-center">
+    <div className="max-w-7xl mx-auto my-16 px-4 text-center">
       <motion.h2
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}

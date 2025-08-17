@@ -10,8 +10,6 @@ const AllProducts = () => {
   const [deletingProduct, setDeletingProduct] = useState(null);
   const queryClient = useQueryClient();
   const token = localStorage.getItem('token');
-  // console.log(token)
-
  
   const { data: products = [], isLoading } = useQuery({
     queryKey: ['all-products'],

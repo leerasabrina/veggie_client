@@ -6,6 +6,7 @@ This is the frontend of the **VeggieHut**, a dynamic web application for buying 
 
 ## 🔗 Live Website
 - Client-side :https://dazzling-alfajores-c6e1b7.netlify.app
+
 - Server-side:https://server-side-nine-ruddy.vercel.app
 ---
 

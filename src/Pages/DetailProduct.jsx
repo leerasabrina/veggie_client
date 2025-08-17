@@ -18,7 +18,6 @@ const DetailProduct = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  // Fetch products for this market/id
   const { data, isLoading, isError } = useQuery({
     queryKey: ["marketDetails", id],
     queryFn: async () => {
@@ -32,10 +31,11 @@ const DetailProduct = () => {
   });
   console.log(data)
 
-  // Fetch purchased products for logged in user (only if user logged in)
+  
   const {
     data: purchasedProducts = [],
     isLoading: loadingPurchases,
+   
   } = useQuery({
     queryKey: ["purchasedProducts", user?.email],
     enabled: !!user?.email,
@@ -84,6 +84,38 @@ const DetailProduct = () => {
     
   };
 
+  const handleAddToCart = async (item) => {
+  if (!user?.email) {
+    toast.error("Please login to add to cart.");
+    return;
+  }
+
+  try {
+    const res = await axios.post(
+      "https://server-side-nine-ruddy.vercel.app/cart",
+      {
+        productId: item._id,
+        email: user.email,
+        itemName: item.itemName,
+        pricePerUnit: item.pricePerUnit,
+        quantity: 1
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    );
+
+    if (res.data.insertedId) {
+      toast.success(`${item.itemName} added to cart 🛒`);
+    } else {
+      toast.info("Already in cart");
+    }
+  } catch (err) {
+    toast.error("Failed to add to cart");
+  }
+};
+
+
   return (
     <div className="max-w-5xl mx-auto p-6 space-y-6">
       <h1 className="text-3xl font-bold">{firstProduct?.marketName}</h1>
@@ -121,6 +153,12 @@ const DetailProduct = () => {
                 >
                   {alreadyBought ? "Already Purchased" : "🛒 Buy Product"}
                 </button>
+                 <button
+    onClick={() => handleAddToCart(item)}
+    className="px-3 py-1 rounded bg-green-600 hover:bg-green-700 text-white"
+  >
+    ➕ Add to Cart
+  </button>
               </li>
             );
           })}

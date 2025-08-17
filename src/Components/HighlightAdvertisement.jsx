@@ -29,7 +29,7 @@ const HighlightAdvertisement = () => {
 }, [ads, isLoading]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 my-10">
+    <div className="max-w-7xl mx-auto px-4 my-10">
       <h2 className="text-2xl font-semibold mb-4 text-center">Today's Hot Deals </h2>
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
@@ -40,18 +40,19 @@ const HighlightAdvertisement = () => {
         autoplay={{ delay: 3000 }}
         loop={true}
         breakpoints={{
-          640: { slidesPerView: 1 },
-          768: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 },
+           320: { slidesPerView: 1 },
+          640: { slidesPerView: 2 },
+          768: { slidesPerView: 3},
+          1024: { slidesPerView:4 },
         }}
       >
         {ads.map((ad) => (
           <SwiperSlide key={ad._id}>
-            <div className="bg-white border border-gray-100 rounded-2xl shadow-md p-4 h-[300px] flex flex-col justify-between">
+            <div className="bg-white border border-gray-100 rounded-2xl shadow-md p-4 h-[260px] flex flex-col justify-between">
               <img
                 src={ad.image}
                 alt={ad.title || "Advertisement"}
-                className="w-full h-40 object-cover rounded-lg mb-3"
+                className="w-full h-30 object-cover rounded-lg mb-3"
               />
               <h3 className="text-lg font-bold">{ad.title}</h3>
               <p className="text-sm text-gray-600">{ad.description}</p>

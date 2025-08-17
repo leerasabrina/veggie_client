@@ -12,7 +12,7 @@ const AddAdvertisement = () => {
   const token = localStorage.getItem('token')
 
   
-  const { mutateAsync, isPending } = useMutation({
+  const { mutateAsync, isLoading } = useMutation({
     mutationFn: async (newAd) => {
       const res = await axios.post("https://server-side-nine-ruddy.vercel.app/advertisements", newAd,{
         headers: {
@@ -68,10 +68,10 @@ const AddAdvertisement = () => {
 
         <button
           type="submit"
-          disabled={isPending}
+          disabled={isLoading}
           className="btn btn-primary w-full"
         >
-          {isPending ? "Submitting..." : "Submit Advertisement"}
+          {isLoading ? "Submitting..." : "Submit Advertisement"}
         </button>
       </form>
     </div>

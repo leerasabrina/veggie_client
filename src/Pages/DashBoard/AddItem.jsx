@@ -14,7 +14,7 @@ const AddItem = () => {
   const { register, handleSubmit, reset } = useForm();
   const token = localStorage.getItem('token');
 
-  const { mutate: addProduct, isLoading } = useMutation({
+  const { mutateAsync: addProduct, isLoading } = useMutation({
     mutationFn: async (productData) => {
       const res = await axios.post('https://server-side-nine-ruddy.vercel.app/products', productData,{
         headers:{
@@ -41,7 +41,7 @@ const AddItem = () => {
       date: selectedDate.toISOString().split('T')[0],
       marketDescription: data.marketDescription,
       itemName: data.itemName,
-      status: 'pending',
+      status: 'pending',                                                     
       image: data.image,
       pricePerUnit: parseFloat(data.pricePerUnit),
       prices: [

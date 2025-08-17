@@ -15,5 +15,4 @@ const PaymentModal = ({ isOpen, onClose, product, email, onSuccess }) => {
   );
 };
 
-
 export default PaymentModal;

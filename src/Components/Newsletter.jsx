@@ -20,7 +20,7 @@ const Newsletter = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto my-20 border border-gray-100 shadow-md p-8 rounded-lg text-center  ">
+    <div className="max-w-7xl mx-auto my-20 border border-gray-100 shadow-md p-8 rounded-lg text-center  ">
         <motion.h2
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}

@@ -3,6 +3,8 @@ import { FaFacebookF,FaTwitter, FaLinkedinIn, FaEnvelope, FaPhoneAlt, FaMapMarke
 // import { PiBookOpenDuotone } from "react-icons/pi";
 import './component.css'
 import Logo from './Logo';
+import { Link } from 'react-router';
+import { FaLinkedin, FaFacebook } from 'react-icons/fa';
 
 
 
@@ -20,26 +22,41 @@ const Footer = () => {
         <div>
           <h3 className="text-xl font-semibold mb-4">Contact Us</h3>
           <p className="flex items-center gap-2 mb-2"><FaMapMarkerAlt /> Dhaka, Bangladesh</p>
-          <p className="flex  items-center gap-2 mb-2"><FaPhoneAlt /> +880 1234-567890</p>
+          <p className="flex  items-center gap-2 mb-2"><FaPhoneAlt /> +8801990983050</p>
           {/* @ er pore logo name dibo */}
-          <p className="flex  items-center gap-2"><FaEnvelope /> support@veggiehut.com</p>
+          <p className="flex  items-center gap-2"><FaEnvelope /> lsabrinahossain@gmail.com</p>
         </div>
 
        
         <div>
           <h3 className="text-xl font-semibold mb-4">Legal</h3>
           <ul>
-            <li className="mb-2 hover:text-blue-400 cursor-pointer">Terms & Conditions</li>
-            <li className="hover:text-blue-400 cursor-pointer">Privacy Policy</li>
+            <li className="mb-2  hover:text-blue-400 cursor-pointer"><Link to={'/terms'} className='custom-size'>Terms & Conditions</Link></li> 
+            <li className="hover:text-blue-400 cursor-pointer"><Link to={'/privacy'} className='custom-size'>Privacy and Policy</Link></li>
           </ul>
         </div>
 
         <div>
           <h3 className="text-xl font-semibold mb-4">Follow Us</h3>
           <div className="flex gap-4 text-2xl">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 a"><FaFacebookF /></a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-sky-400 a"><FaTwitter /></a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-300 a"><FaLinkedinIn /></a>
+            <a
+            href="https://linkedin.com/in/sabrinahossainlira"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            className="hover:text-green-600"
+          >
+            <FaLinkedin />
+          </a>
+          <a
+            href="https://facebook.com/lirasabrinahossain"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+            className="hover:text-green-600"
+          >
+            <FaFacebook />
+          </a>
           </div>
         </div>
       </div>

@@ -17,6 +17,7 @@ const Dashboard = () => {
       {/* Sidebar */}
       <aside className='w-64 p-4 lg:pt-8 bg-white shadow-2xl'>
         <ul>
+         <li><NavLink to="/dashboard/profile" className='a'> Profile</NavLink></li>
          <li><NavLink to="/dashboard/view" className='a'> View price trends</NavLink></li>
           <li><NavLink to="/dashboard/manage"className='a'> Manage watchlist</NavLink></li>
           <li><NavLink to="/dashboard/order-list"className='a'> My Order List</NavLink></li>

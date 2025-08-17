@@ -16,6 +16,7 @@ const DashboardSeller = () => {
       <aside className='w-64 p-4 lg:pt-8 bg-white shadow-2xl'>
       
         <ul>
+          <li><NavLink to="/dashboard-seller/profile" className='a' >Profile</NavLink></li>
            <li><NavLink to="/dashboard-seller/add-adv" className='a'>Add  Advertisement</NavLink></li>
            <li><NavLink to="/dashboard-seller/my-advs" className='a'>My  Advertisements</NavLink></li>
           <li><NavLink to="/dashboard-seller/add-item" className='a'>Add Product</NavLink></li>

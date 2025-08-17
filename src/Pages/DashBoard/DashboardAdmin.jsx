@@ -16,6 +16,7 @@ const DashboardAdmin = () => {
        
       
         <ul className="space-y-4">
+           <li><NavLink to="/dashboard-admin/profile" className='a' >Profile</NavLink></li>
            <li><NavLink to="/dashboard-admin/all-user" className='a' >All users</NavLink></li>
            <li><NavLink to="/dashboard-admin/all-product" className='a'>All products</NavLink></li>
           <li><NavLink to="/dashboard-admin/all-adv" className='a'>All  Advertisements</NavLink></li>
